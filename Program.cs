@@ -11,25 +11,26 @@ namespace Snake
     {
         static void Main()
         {
+            Console.CursorVisible = false;
             Random rd = new Random();
-            Snake snake = new Snake(new coordinates(2,2));
+            Snake snake = new Snake();
             bool GameOver = false;
             try
             {
                 while (!GameOver)
                 {
-                    List<coordinates> ground = new List<coordinates>();
-                    for (int h = 1; h < Console.WindowHeight-1; h++)
+                    List<Coordinates> ground = new List<Coordinates>();
+                    for (int h = 1; h < Console.WindowHeight - 1; h++)
                     {
-                        for (int w = 1; w < Console.WindowWidth-1; w++)
-                            ground.Add(new coordinates(w, h));
+                        for (int w = 1; w < Console.WindowWidth - 1; w++)
+                            ground.Add(new Coordinates(w, h));
                     }
                     foreach (var t in snake.Body)
                     {
                         ground.Remove(t);
                     }
                     int a = rd.Next(0, ground.Count);
-                    food f = new food(ground[a].X, ground[a].Y);
+                    Food f = new Food(ground[a].X, ground[a].Y);
                     snake.show();
                     f.Show();
                     while (f.cord != snake.head && !GameOver)
@@ -37,6 +38,14 @@ namespace Snake
                         snake.show();
                         f.Show();
                         snake.Move(Console.ReadKey().Key);
+                        for(int i=0;i<snake.Body.Count-1;i++)
+                        {
+                            if(snake.Body[i]==snake.head)
+                            {
+                                GameOver = true;
+                                break;
+                            }
+                        }
                         //Thread.Sleep(100);
                     }
                     snake.eat(f);
@@ -51,7 +60,8 @@ namespace Snake
             }
             finally
             {
-                Console.ReadLine();
+                Console.WriteLine("press any key to close");
+                Console.ReadKey();
             }
         }
     }

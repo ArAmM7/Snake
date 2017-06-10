@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    class food:coordinates
+    class Food:Coordinates
     {
-        public food(int x, int y)
+        public Food(int x, int y)
         {
             X = x;
             Y = y;
         }
-        public coordinates cord
+        public Coordinates cord
         {
-            get => new coordinates(X, Y);
+            get => this;
         }
         public void Show()
         {
