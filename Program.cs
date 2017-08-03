@@ -11,10 +11,12 @@ namespace Snake
     {
         static void Main()
         {
+            
             Console.CursorVisible = false;
             Random rd = new Random();
             Snake snake = new Snake();
             bool GameOver = false;
+            int score = snake.length;
             try
             {
                 while (!GameOver)
@@ -35,6 +37,7 @@ namespace Snake
                     f.Show();
                     while (f.cord != snake.head && !GameOver)
                     {
+                        Console.Title =" score: "+ score.ToString();
                         snake.show();
                         f.Show();
                         snake.Move(Console.ReadKey().Key);
@@ -43,20 +46,23 @@ namespace Snake
                             if(snake.Body[i]==snake.head)
                             {
                                 GameOver = true;
-                                break;
+                                throw new Exception();
                             }
                         }
-                        //Thread.Sleep(100);
+                        //Thread.Sleep(100);  
                     }
                     snake.eat(f);
+                    score++;
                 }
+                
                 throw new Exception();
             }
             catch
             {
+                Console.Title = "GAME OVER !!";
                 Console.Clear();
                 Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight / 2);
-                Console.WriteLine("game over");
+                Console.WriteLine("game over  your score is "+score);
             }
             finally
             {

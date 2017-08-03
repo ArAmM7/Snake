@@ -36,6 +36,11 @@ namespace Snake
             }
         }
 
+        public int length
+        {
+            get => Body.Count;
+        }
+
         public void Move(ConsoleKey ck)
         {
             switch(ck)
